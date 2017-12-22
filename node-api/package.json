@@ -6,8 +6,7 @@
   "private": true,
   "author": "Sudheera R. Fernando <srf@xconsole.org>",
   "license": "MIT",
-  "scripts": {
-  },
+  "scripts": {},
   "dependencies": {
     "mysql": "^2.15.0",
     "restify": "^6.3.4",
