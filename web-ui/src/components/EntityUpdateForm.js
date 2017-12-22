@@ -110,14 +110,32 @@ class EntityUpdateForm extends Component {
                     Schema.properties.map( (ep) => {
                         if (ep.type === 'rel')
                             return (
-                                <Form.Field key={ ep.name }>
-                                    <label >{ ep.name }</label>
-                                    <Dropdown name={ ep.name } placeholder={ 'Entity ' + ep.name } label={ 'Entity ' + ep.name } fluid search selection options={ options } value={ this.state[ep.name] } onChange={ this.handleChange } />
-                                </Form.Field>
+                                <Form.Field
+                                    control={ Dropdown }  
+                                    key={ ep.name }                                         
+                                    name={ ep.name }
+                                    placeholder={ ep.name }
+                                    label={ ep.label || ep.name } 
+                                    options={ options } 
+                                    value={ this.state[ep.name] }  
+                                    onChange={ this.handleChange }
+                                    required={ ep.required }
+                                    search
+                                    selection
+                                 /> 
                             )
                         else
                             return (
-                                <Form.Field key={ ep.name } name={ ep.name } placeholder={ 'Entity ' + ep.name } label={ 'Entity ' + ep.name } control={ Input } value={ this.state[ep.name] || '' } onChange={ this.handleChange || '' } />
+                                <Form.Field
+                                    control={ Input }
+                                    key={ ep.name }
+                                    name={ ep.name }
+                                    placeholder={ ep.name }
+                                    label={ ep.label || ep.name }                                    
+                                    value={ this.state[ep.name] || '' } 
+                                    onChange={ this.handleChange }
+                                    required={ ep.required }
+                                />
                             )
                     })
                 }

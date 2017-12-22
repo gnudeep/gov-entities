@@ -70,8 +70,8 @@ class EntityForm extends Component {
                                     control={ Dropdown }  
                                     key={ ep.name }                                         
                                     name={ ep.name }
-                                    placeholder={ 'Entity ' + ep.name }
-                                    label={ 'Entity ' + ep.name } 
+                                    placeholder={ ep.name }
+                                    label={ ep.label || ep.name } 
                                     options={ options } 
                                     value={ this.state[ep.name] || (ep.name === 'parent') ? this.props.selectedEntity : '' }  
                                     onChange={ this.handleChange }
@@ -86,8 +86,8 @@ class EntityForm extends Component {
                                     control={ Input }
                                     key={ ep.name }
                                     name={ ep.name }
-                                    placeholder={ 'Entity ' + ep.name }
-                                    label={ 'Entity ' + ep.name }                                    
+                                    placeholder={ ep.name }
+                                    label={ ep.label || ep.name }                                    
                                     value={ this.state[ep.name] || '' } 
                                     onChange={ this.handleChange || '' }
                                     required={ ep.required }

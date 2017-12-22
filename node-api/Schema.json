@@ -1,10 +1,42 @@
 {
     "name": "entity",
     "properties": [
-        {"name": "name", "type": "string", "required": true},
-        {"name": "parent", "type": "rel", "required": true},
-        {"name": "financial", "type": "rel"},
-        {"name": "geo_coordinates", "type": "string"},
-        {"name": "geo_area", "type": "string"}
+        {
+            "name": "name",
+            "label": "Name",
+            "type": "string",
+            "sql_type": "VARCHAR(256)",
+            "required": true
+        },
+        {
+            "name": "parent",
+            "label": "Parent",
+            "type": "rel",
+            "required": true
+        },
+        {
+            "name": "financial",
+            "label": "Financial",
+            "type": "rel"
+        },
+        {
+            "name": "geo_coordinates",
+            "label": "Location Coordinates",
+            "type": "string",
+            "sql_type": "VARCHAR(256)"
+        },
+        {
+            "name": "geo_area",
+            "label": "Location Area",
+            "type": "string",
+            "sql_type": "TEXT"
+        },
+        {
+            "name": "category",
+            "label": "Categoty",
+            "type": "string",
+            "sql_type": "VARCHAR(64)",
+            "required": false
+        }
     ]
 }
