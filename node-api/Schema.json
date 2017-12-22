@@ -1,0 +1,10 @@
+{
+    "name": "entity",
+    "properties": [
+        {"name": "name", "type": "string", "required": true},
+        {"name": "parent", "type": "rel", "required": true},
+        {"name": "financial", "type": "rel"},
+        {"name": "geo_coordinates", "type": "string"},
+        {"name": "geo_area", "type": "string"}
+    ]
+}

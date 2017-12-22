@@ -1,0 +1,17 @@
+{
+  "name": "gov-entities-api",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "private": true,
+  "author": "Sudheera R. Fernando <srf@xconsole.org>",
+  "license": "MIT",
+  "scripts": {
+  },
+  "dependencies": {
+    "mysql": "^2.15.0",
+    "restify": "^6.3.4",
+    "restify-errors": "^5.0.0",
+    "restify-plugins": "^1.6.0"
+  }
+}
