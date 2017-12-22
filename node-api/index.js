@@ -3,7 +3,7 @@ const config  = require('./config'),
       mysql   = require('mysql'),
       Schema  = require('./Schema.json');
 
-var connection = config.db.connection;
+const connection = config.db.connection;
 
 const server = restify.createServer({
   name    : config.name,
