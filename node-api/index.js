@@ -139,3 +139,10 @@ server.opts('/entities/:id', function(req, res, next) {
   res.send(204);
   return next();
 });
+
+
+// Serve reactjs build 
+server.get('/\/.*/', restify.plugins.serveStatic({
+  directory: '../web-ui/build/',
+  default: 'index.html'
+}));
