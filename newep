@@ -1,0 +1,76 @@
+#!/usr/bin/env node
+
+const 
+    config  = require('./node-api/config'),
+    mysql   = require('./node-api/node_modules/mysql'),
+    Schema  = require('./node-api/Schema.json'),
+    fs = require('fs');
+
+const args = process.argv.slice(2);
+
+if (args.length < 3) {
+    console.log("\n");
+    console.log("[Usage] To add a new entity property:");
+    console.log("./newep <name> <label> <type> <sql_type> [is_required]\n");
+    return;
+}
+
+let prop = {},
+    sql = '';
+
+if (args[2] === 'rel') {
+    prop = {
+        name: args[0],
+        label: args[1],
+        type: args[2],
+        required: args[4] ? true : false,
+    }
+
+    sql = `CREATE TABLE entity_${prop.name} (
+        id int(11) NOT NULL,
+        ${prop.name} int(11) DEFAULT NULL,
+        start datetime NOT NULL DEFAULT '2017-01-01 00:00:00',
+        end datetime DEFAULT NULL,
+        PRIMARY KEY (id,start),
+        KEY fk_entity_rel_${prop.name}_entity_idx (${prop.name}),
+        CONSTRAINT fk_entity_${prop.name} FOREIGN KEY (id) REFERENCES entity (id) ON DELETE CASCADE ON UPDATE CASCADE,
+        CONSTRAINT fk_entity_${prop.name}_entity FOREIGN KEY (${prop.name}) REFERENCES entity (id) ON DELETE CASCADE ON UPDATE CASCADE
+      ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+      `;
+
+} else {
+    prop = {
+        name: args[0],
+        label: args[1],
+        type: args[2],
+        sql_type: args[3],
+        required: args[4] ? true : false,
+    }
+
+    sql = `CREATE TABLE entity_${prop.name} (
+        id int(11) NOT NULL,
+        ${prop.name} ${prop.sql_type} NOT NULL,
+        start datetime NOT NULL DEFAULT '2017-01-01 00:00:00',
+        end datetime DEFAULT NULL,
+        PRIMARY KEY (id, start),
+        CONSTRAINT fk_entity_${prop.name} FOREIGN KEY (id) REFERENCES entity (id) ON DELETE CASCADE ON UPDATE CASCADE
+      ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+      `;
+    
+}
+
+
+Schema.properties.push(prop);
+
+config.db.connection.query(sql, function (error, results, fields) {
+    if (error) {
+        console.log(error);
+        return -1;
+    }
+
+    fs.writeFileSync('./node-api/Schema.json', JSON.stringify(Schema, null, 4), 'utf8');
+
+    console.log('Done.');
+    config.db.connection.end();
+    return 0;
+});
