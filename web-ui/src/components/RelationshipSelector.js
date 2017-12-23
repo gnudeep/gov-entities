@@ -7,7 +7,7 @@ class RelationshipSelector extends Component {
     constructor(props) {
         super(props);
 
-        this.state = this.props.selected_rel;
+        this.state = this.props.selectedRelationships;
     }
     
     handleChange = (e, { name }) => {

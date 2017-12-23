@@ -8,46 +8,66 @@ import { array2graph } from './util';
 
 
 class MainOrgChartVis extends Component {
+
+    constructor(props) {
+        super(props);
+        this.state = {
+            network: {},
+            selectedNode: this.props.selectedNode
+        };
+      }
     
+    componentDidMount() {
+        this.network.focus(this.state.selectedNode, {
+            scale: 1,
+            offset: {x:0, y: -100},
+            animation: { duration: 1000 }
+        });
+        
+    }
+
+    getNetwork = (network) => {
+        this.network = network;
+    }
+
+    handleSelectNode = (event) => {
+        this.props.selectEntity(event.nodes[0]);
+              
+    }
+
     render() {
         const data = this.props.entities;
 
         const options = {
             autoResize: true,
+            physics: false,
             layout: {
                 improvedLayout:true,
                 hierarchical: {
                   enabled:true,
-                  levelSeparation: 300,
-                  nodeSpacing: 100,
+                  levelSeparation: 240,
+                  nodeSpacing: 400,
                   blockShifting: false,
                   edgeMinimization: true,
                   parentCentralization: true,
-                  direction: 'LR',        // UD, DU, LR, RL
+                  direction: 'UD',        // UD, DU, LR, RL
                   sortMethod: 'directed'   // hubsize, directed
                 }            
             },
             edges: {
               color: "#000000",
-              arrows: {
-                  to: true
-              }
+              arrows: { to: true }
             },
-            nodes:{
+            nodes: {
                 shape: 'box',
-                fixed: false,
+                fixed: true,
                 scaling: {
                     label: true
-                  },
-                  shadow: true,                              
+                },
+                shadow: true,                              
                 borderWidth: 1,
                 borderWidthSelected: 2,
                 brokenImage:undefined
-              },
-              "physics": false,
-            configure: {
-                enabled: false,
-                showButton: true
             },
             interaction: {
                 navigationButtons: true,
@@ -55,21 +75,12 @@ class MainOrgChartVis extends Component {
                 hover:true
             }
         };
-          
-        const selectEntity = this.props.selectEntity;
-        const events = {
-          selectNode: function(event) {
-              
-              var { nodes } = event;
-              selectEntity(nodes[0]);
-              //console.log("Selected nodes:");
-              //console.log(nodes);
-              //console.log("Selected edges:");
-              //console.log(edges);
-            }
-          };
 
-        return <Graph graph={array2graph(data, this.props.selected_rel)} focus={this.props.selectedEntity} options={options} events={events} style={{ height: "700px", width: "100%" }} />;
+        const events = {
+          selectNode: this.handleSelectNode
+        };
+
+        return <Graph graph={array2graph(data, this.props.selectedRelationships)} getNetwork={ this.getNetwork } options={options} events={events} style={{ height: "700px" }} />;
     }
 
 };

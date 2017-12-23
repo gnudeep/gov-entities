@@ -8,40 +8,41 @@ import RelationshipSelector from './RelationshipSelector';
 import MainOrgChartVis from './MainOrgChartVis';
 import EntityForm from './EntityForm';
 import EntityUpdateForm from './EntityUpdateForm';
-import Map from './Map';
+//import Map from './Map';
 
 
 class App extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      isLoaded: null,
-      error: null,
-      data:  {},
-      selected_rel: {parent: true},
-      selectedEntity: 1,
-      selectedParents: [0]
-    };
+    constructor(props) {
+        super(props);
+        this.state = {
+            isLoaded: null,
+            error: null,
+            data:  {},
+            selectedRelationships: {parent: true},
+            selectedEntity: 0,
+            selectedParents: [0]
+        };
   }
 
   componentDidMount() {   
-    this.fetchData();
+      this.fetchData();
   }
 
   updateRelationshipSelection = (name) => {
-    let selected_rel = this.state.selected_rel;
-    selected_rel[name] = !selected_rel[name];
+      let selectedRelationships = this.state.selectedRelationships;
+      selectedRelationships[name] = !selectedRelationships[name];
 
-		this.setState({
-      selected_rel: selected_rel
-		});
+		  this.setState({
+          selectedRelationships: selectedRelationships
+		  });
   }
 
   selectEntity = (id) => {
+
     this.setState({
       selectedEntity: id
     });
-
+  
     let idx = this.state.selectedParents.indexOf(id);
     if (idx !== -1) {
       this.state.selectedParents.length = this.state.selectedParents.indexOf(id);
@@ -52,23 +53,24 @@ class App extends Component {
   }
 
   fetchData = () => {
-    const parents = this.state.selectedParents.join(',');
-    fetch("/entities?parents=" + parents)
-    .then(res => res.json())
-    .then(
-      (result) => {
-          this.setState({
-            isLoaded: true,
-            data: result
-          });
-      },
-      (error) => {
-        this.setState({
-          isLoaded: true,
-          error
-        });
-      }
-    )
+      const parents = this.state.selectedParents.join(',');
+      console.log(parents);
+      fetch("/entities?parents=" + parents)
+      .then(res => res.json())
+      .then(
+          (result) => {
+              this.setState({
+                isLoaded: true,
+                data: result
+              });
+          },
+          (error) => {
+            this.setState({
+              isLoaded: true,
+              error
+            });
+          }
+      )
   }
 
   render() {
@@ -113,8 +115,8 @@ class App extends Component {
 					<Grid.Row columns={ 2 }>
 
 						<Grid.Column width={ 12 }>
-							<RelationshipSelector selected_rel={ this.state.selected_rel } reload={ this.updateRelationshipSelection } />
-							<MainOrgChartVis entities={ data } fetchData={ this.fetchData } selected_rel={ this.state.selected_rel } selected={ this.selectedEntity } selectEntity={ this.selectEntity } />
+							<RelationshipSelector selectedRelationships={ this.state.selectedRelationships } reload={ this.updateRelationshipSelection } />
+							<MainOrgChartVis entities={ data } fetchData={ this.fetchData } selectedRelationships={ this.state.selectedRelationships } selectedNode={ this.state.selectedEntity } selectEntity={ this.selectEntity } />
 						</Grid.Column>
 						
 						<Grid.Column width={ 4 }>

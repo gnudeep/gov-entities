@@ -28,7 +28,7 @@ function array2json(array) {
     return map['-'];
 }
 
-function array2graph(array, selected_rel) {
+function array2graph(array, selectedRelationships) {
     let graph = {
         nodes: [],
         edges: []
@@ -42,7 +42,7 @@ function array2graph(array, selected_rel) {
         });
 
         for (let ep of Schema.properties) {
-            if (ep.type === 'rel' && entity[ep.name] !== null && selected_rel[ep.name]) {                
+            if (ep.type === 'rel' && entity[ep.name] !== null && selectedRelationships[ep.name]) {                
                 let parent = {id: entity[ep.name], type: ep.name};
         
                 graph.edges.push({
