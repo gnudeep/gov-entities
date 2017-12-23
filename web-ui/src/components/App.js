@@ -45,7 +45,9 @@ class App extends Component {
   
     let idx = this.state.selectedParents.indexOf(id);
     if (idx !== -1) {
-      this.state.selectedParents.length = this.state.selectedParents.indexOf(id);
+      let selectedParents = this.state.selectedParents;
+      selectedParents.length = selectedParents.indexOf(id);
+      this.setState({ selectedParents: selectedParents });
     }
     
     this.state.selectedParents.push(id);
