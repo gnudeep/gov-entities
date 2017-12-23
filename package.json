@@ -8,7 +8,7 @@
     "node": "9.x"
   },
   "scripts": {
-    "start": "cd node-api/ && node index.js",
+    "start": "cd node-api/ && ./node_modules/forever/bin/forever index.js",
     "heroku-postbuild": "cd web-ui/ && npm install && npm install --only=dev --no-shrinkwrap && npm run build && cd ../node-api/ && npm install"
   },
   "cacheDirectories": [
