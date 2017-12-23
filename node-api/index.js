@@ -19,6 +19,7 @@ server.use(function crossOrigin(req,res,next) {
 
 server.use(restify.plugins.acceptParser(server.acceptable));
 server.use(restify.plugins.queryParser());
+server.use(restify.plugins.queryParser());
 server.use(restify.plugins.bodyParser());
 
 server.listen(config.port, function () {
@@ -36,6 +37,12 @@ const joins = Schema.properties.map(ep => 'entity_' + ep.name)
 // Read: get functions
 server.get('/entities', function (req, res) {
   let sql = `SELECT entity.id, ${fields} FROM entity ${joins} `;
+  if (req.query.parents !== '') {
+    let last = req.query.parents.split(',').pop();
+    sql = sql + `WHERE entity.id IN (${req.query.parents}) OR parent IN (${last})`;
+  } else {
+    sql = sql + `WHERE entity.id IN (0)`;
+  }
 
   connection.query(sql, function (error, results, fields) {
     if (error) throw error;
@@ -101,7 +108,7 @@ server.put('/entities/:id', function (req, res) {
 
     const table = 'entity_' + ep.name;
 
-    if (!data[ep.name] || data[ep.name] === '') {
+    if (data[ep.name] === undefined || data[ep.name] === null || data[ep.name] === '') {
       connection.query('DELETE FROM ?? WHERE id = ? AND start = ? ', [table, entity_id, original_start], function (error, results, fields) {
         if (error) console.log(error);
         res.end(JSON.stringify(results));

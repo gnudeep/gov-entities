@@ -8,7 +8,7 @@ import RelationshipSelector from './RelationshipSelector';
 import MainOrgChartVis from './MainOrgChartVis';
 import EntityForm from './EntityForm';
 import EntityUpdateForm from './EntityUpdateForm';
-//import Map from './Map';
+import Map from './Map';
 
 
 class App extends Component {
@@ -19,8 +19,8 @@ class App extends Component {
       error: null,
       data:  {},
       selected_rel: {parent: true},
-      selectedEntity: 1
-
+      selectedEntity: 1,
+      selectedParents: [0]
     };
   }
 
@@ -41,10 +41,20 @@ class App extends Component {
     this.setState({
       selectedEntity: id
     });
+
+    let idx = this.state.selectedParents.indexOf(id);
+    if (idx !== -1) {
+      this.state.selectedParents.length = this.state.selectedParents.indexOf(id);
+    }
+    
+    this.state.selectedParents.push(id);
+    this.fetchData();
   }
 
   fetchData = () => {
-    fetch("/entities")
+    const parents = this.state.selectedParents.join(',');
+    console.log(parents);
+    fetch("/entities?parents=" + parents)
     .then(res => res.json())
     .then(
       (result) => {
@@ -105,7 +115,7 @@ class App extends Component {
 
 						<Grid.Column width={ 12 }>
 							<RelationshipSelector selected_rel={ this.state.selected_rel } reload={ this.updateRelationshipSelection } />
-							<MainOrgChartVis entities={ data } fetchData={ this.fetchData } selected_rel={ this.state.selected_rel } selectEntity={ this.selectEntity } />
+							<MainOrgChartVis entities={ data } fetchData={ this.fetchData } selected_rel={ this.state.selected_rel } selected={ this.selectedEntity } selectEntity={ this.selectEntity } />
 						</Grid.Column>
 						
 						<Grid.Column width={ 4 }>
@@ -114,7 +124,7 @@ class App extends Component {
 							<hr />
 							<hr />
 						</Grid.Column>
-
+              {/*<Map />*/}
 					</Grid.Row>
 				</Grid>
 			</div>

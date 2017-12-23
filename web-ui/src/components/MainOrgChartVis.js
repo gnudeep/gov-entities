@@ -18,12 +18,12 @@ class MainOrgChartVis extends Component {
                 improvedLayout:true,
                 hierarchical: {
                   enabled:true,
-                  levelSeparation: 140,
-                  nodeSpacing: 200,
+                  levelSeparation: 300,
+                  nodeSpacing: 100,
                   blockShifting: false,
                   edgeMinimization: true,
                   parentCentralization: true,
-                  direction: 'UD',        // UD, DU, LR, RL
+                  direction: 'LR',        // UD, DU, LR, RL
                   sortMethod: 'directed'   // hubsize, directed
                 }            
             },
@@ -69,7 +69,7 @@ class MainOrgChartVis extends Component {
             }
           };
 
-        return <Graph graph={array2graph(data, this.props.selected_rel)} options={options} events={events} style={{ height: "700px", width: "100%" }} />;
+        return <Graph graph={array2graph(data, this.props.selected_rel)} focus={this.props.selectedEntity} options={options} events={events} style={{ height: "700px", width: "100%" }} />;
     }
 
 };
