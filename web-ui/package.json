@@ -5,6 +5,7 @@
   "author": "Sudheera R. Fernando <srf@xconsole.org>",
   "license": "MIT",
   "dependencies": {
+    "google-map-react": "^0.26.0",
     "react": "^16.2.0",
     "react-dom": "^16.2.0",
     "react-graph-vis": "^1.0.2",
