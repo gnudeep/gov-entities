@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Form, Checkbox } from 'semantic-ui-react';
+import { Form, Checkbox, Header } from 'semantic-ui-react';
 import Schema from './Schema.json';
 
 
@@ -17,6 +17,7 @@ class RelationshipSelector extends Component {
     render() {
         return (
             <Form.Field>
+            <Header size='small'>Relationships</Header>
             {
                 Schema.properties.map( (ep) => {
                     if (ep.type === 'rel') {
