@@ -92,7 +92,7 @@ The database is designed to track organization entity properties (name, address,
 To achieve this, each property is gived a separate table in the database (instead of being a table column).
 
 
-_revision tracking is yet to bet implemented_
+_revision tracking is yet to be implemented_
 
 
 ### Database
