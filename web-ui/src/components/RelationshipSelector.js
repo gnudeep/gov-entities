@@ -21,7 +21,7 @@ class RelationshipSelector extends Component {
             {
                 Schema.properties.map( (ep) => {
                     if (ep.type === 'rel') {
-                        return <Checkbox key={ ep.name } toggle label={ ep.name } onChange={ this.handleChange } name={ ep.name } checked={ this.state[ep.name] } />;
+                        return <Checkbox key={ ep.name } toggle label={ ep.label || ep.name } onChange={ this.handleChange } name={ ep.name } checked={ this.state[ep.name] } />;
                     }
                     return null;
                 })
