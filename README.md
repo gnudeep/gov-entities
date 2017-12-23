@@ -88,9 +88,11 @@ npm start
 ***
 
 ## Current Architecture
-The database is designed to track organization entity properties (name, address, type...), relationships between entities and changes for those over time.(*revision tracking is yet to bet implemented*)
-To achieve this, all the each property is gived a separate table in the database (instead of being a table column).
+The database is designed to track organization entity properties (name, address, type...), relationships between entities and changes for those over time.
+To achieve this, each property is gived a separate table in the database (instead of being a table column).
 
+
+_revision tracking is yet to bet implemented_
 
 
 ### Database
