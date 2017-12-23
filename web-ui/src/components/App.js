@@ -53,7 +53,6 @@ class App extends Component {
 
   fetchData = () => {
     const parents = this.state.selectedParents.join(',');
-    console.log(parents);
     fetch("/entities?parents=" + parents)
     .then(res => res.json())
     .then(
