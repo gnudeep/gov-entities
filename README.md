@@ -106,7 +106,7 @@ The structure for this is defined in the [```node-api/Schema.json```](https://gi
 ### Property table structure
 * Naming convention ```entity_<property_name>```
 * Should only contain 4 fields
-  id, <property>, start, end
+  id, [property], start and end
 
 **Also there are two types of entity property tables,**
 * Regular (name, address, type etc.)
