@@ -110,7 +110,7 @@ The structure for this is defined in the [```node-api/Schema.json```](https://gi
 
 **Also there are two types of entity property tables,**
 * Regular (name, address, type etc.)
-* Entity relationship (parent/child and eny other that references another entity)
+* Entity relationship (parent/child and any other that references another entity)
 
 **A regular property table**
 ```sh
@@ -212,7 +212,7 @@ To add a new property, you have to first create the property table in the databa
 
 
 ### Script for adding new properties
-There's simple script in the root dir. for adding new propery tables.
+There's simple script (newep) in the root dir. for adding new propery tables.
 ```sh
 ./newep <name> <label> <type> <sql_type> [is_required]
 
@@ -225,7 +225,7 @@ e.g: to add the relationship property, 'parent'
 
 ./newep parent 'Entity Parent' rel 'INT(11)' yes
 ```
-**(leave the last arg. "yes" out to indicate 'not required')**
+**(leave the last arg. ("yes") out to indicate 'not required')**
 
 
 
@@ -233,7 +233,7 @@ e.g: to add the relationship property, 'parent'
 To remove a property you need to drop the table and update the  [```node-api/Schema.json```](https://github.com/sudheera/gov-entities/blob/master/node-api/Schema.json) file.
 Any property can be removed except for **name** and **parent**.
 
-_Both node-api and web-up need to be restared/rebuilt after adding or removing properties._
+_Both node-api and web-ui need to be restared/rebuilt after adding or removing properties._
 
 
 
@@ -241,7 +241,7 @@ _Both node-api and web-up need to be restared/rebuilt after adding or removing p
 
 
 ## Build and Deploy
-The web-up is created using the [create-react-app](https://github.com/facebookincubator/create-react-app). The build script provided will build and bundle the app with required dependencies for production deployment.
+The web-ui is created using the [create-react-app](https://github.com/facebookincubator/create-react-app). The build script provided will build and bundle the app with required dependencies for production deployment.
 
 ```sh
 cd web-ui
