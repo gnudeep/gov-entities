@@ -44,8 +44,8 @@ gov-entities
 
 
 ### MYSQL database
-Create a database (gov_entities) and improt the sample data from "[```sample_data.sql```](https://github.com/sudheera/gov-entities/blob/master/sample_data.sql)" file
-Update the database connection info. in [```node-api/config.js```](https://github.com/sudheera/gov-entities/blob/master/node-api/config.js) file
+Create a database (gov_entities) and import the sample data from "[```sample_data.sql```](https://github.com/sudheera/gov-entities/blob/master/sample_data.sql)" file
+Update the database connection information in [```node-api/config.js```](https://github.com/sudheera/gov-entities/blob/master/node-api/config.js) file
 
 
 
@@ -212,7 +212,7 @@ To add a new property, you have to first create the property table in the databa
 
 
 ### Script for adding new properties
-There's simple script (newep) in the root dir. for adding new propery tables.
+There's simple script (newep) in the root directory for adding new property tables.
 ```sh
 ./newep <name> <label> <type> <sql_type> [is_required]
 
@@ -233,7 +233,7 @@ e.g: to add the relationship property, 'parent'
 To remove a property you need to drop the table and update the  [```node-api/Schema.json```](https://github.com/sudheera/gov-entities/blob/master/node-api/Schema.json) file.
 Any property can be removed except for **name** and **parent**.
 
-_Both node-api and web-ui need to be restared/rebuilt after adding or removing properties._
+_Both node-api and web-ui need to be re-stared/rebuilt after adding or removing properties._
 
 
 
